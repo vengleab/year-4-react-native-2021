@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -6,11 +6,14 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import ListItemContext from '../../context/ListItemContext';
 
 export default props => {
+  const { selectedItem, setSelectedItem } = React.useContext(ListItemContext);
+  const { item } = props;
   return (
-    <TouchableOpacity onPress={e=> props.setSelectedItem(props.item)}>
-      <View style={[styles.item, props.item === props.selectedItem && styles.active]}>
+    <TouchableOpacity onPress={e => setSelectedItem(item)}>
+      <View style={[styles.item, item === selectedItem && styles.active]}>
         <Text>{props.item}</Text>
       </View>
     </TouchableOpacity>
@@ -24,6 +27,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   active: {
-    backgroundColor: '#0a0'
-  }
+    backgroundColor: '#0a0',
+  },
 });
