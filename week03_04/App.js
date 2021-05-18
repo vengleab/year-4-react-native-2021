@@ -6,12 +6,36 @@ import ListItemContext from './context/ListItemContext';
 
 export default () => {
   const items = ['Apple', 'Banana', 'Cat', 'Dog', 'Eat'];
-  const [selectedItem, setSelectedItem] = useState('Dog');
+  const [selectedItem, setSelectedItem] = useState([]);
+
+  function logSelectedItem(params) {
+    // call api here
+    // setSelectedItem([...selectedItem, params]);
+  }
+
   return (
     <View>
-      <ListItemContext.Provider value={{ selectedItem, setSelectedItem }}>
-        <ListItem items={items} />
-      </ListItemContext.Provider>
+      <ListItem
+        items={items}
+        selectedItem={'Cat'}
+        disabledItems={selectedItem}
+        onSelectedItem={logSelectedItem}
+        itemPros={{
+          style: {
+            color: 'red',
+            padding: 10,
+          },
+        }}
+      />
+      <ListItem
+        items={['Cat']}
+        itemPros={{
+          style: {
+            color: 'blue',
+            padding: 0,
+          },
+        }}
+      />
     </View>
   );
 };

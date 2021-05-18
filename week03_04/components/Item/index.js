@@ -20,28 +20,37 @@ import ListItemContext from '../../context/ListItemContext';
 //   );
 // };
 
-export default class Item extends React.Component {
-  // static contextType = ListItemContext;
+class Item extends React.Component {
+  state = {};
   render() {
-    // const { selectedItem, setSelectedItem } = this.context;
-    const { item } = this.props;
+    const {
+      item,
+      onSelectedItem,
+      selectedItem,
+      disabledItems,
+      ...remainProps
+    } = this.props;
     return (
-      <ListItemContext.Consumer>
-        {/* {contextProps => { */}
-        {({ setSelectedItem, selectedItem }) => {
-          return (
-            <TouchableOpacity onPress={e => setSelectedItem(item)}>
-              <View
-                style={[styles.item, item === selectedItem && styles.active]}>
-                <Text>{item}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        }}
-      </ListItemContext.Consumer>
+      <TouchableOpacity onPress={e => onSelectedItem(item)}>
+        <View
+          style={[
+            styles.item,
+            selectedItem == item && styles.active,
+            disabledItems.includes(item) && styles.disable,
+          ]}>
+          <Text {...remainProps}>{item}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }
+
+Item.defaultProps = {
+  onSelectedItem: () => {},
+  disabledItems: [],
+};
+
+export default Item;
 
 const styles = StyleSheet.create({
   item: {
@@ -51,5 +60,8 @@ const styles = StyleSheet.create({
   },
   active: {
     backgroundColor: '#0a0',
+  },
+  disable: {
+    backgroundColor: '#555',
   },
 });
