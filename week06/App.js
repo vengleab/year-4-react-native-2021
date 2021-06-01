@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Info from './screens/Info';

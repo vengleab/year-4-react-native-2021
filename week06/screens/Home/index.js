@@ -19,7 +19,12 @@ const Home = props => {
       {Object.values(SCREEN_NAME).map(screenName => {
         return (
           <Button
-            onPress={() => navigate(screenName)}
+            onPress={() =>
+              navigate({
+                name: screenName,
+                params: { from: 'home_page', to: screenName }, // to pass data to another screen
+              })
+            }
             mode="contained"
             style={{ margin: 3, padding: 3 }}>
             Go to {screenName}
