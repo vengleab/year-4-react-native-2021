@@ -10,24 +10,23 @@ import {
   createStackNavigator,
   HeaderBackButton,
 } from '@react-navigation/stack';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import Screen1 from './screens/Screen1';
 import Screen2 from './screens/Screen2';
 import Screen3 from './screens/Screen3';
 import Screen4 from './screens/Screen4';
 import HeaderTitle from './components/HeaderTitle';
-
-const TabBarIcon = props => {
-  const { focused, color, size, name } = props;
-  return (
-    <Icon
-      style={{ fontSize: size, color: focused ? color : 'green' }}
-      name={name}
-    />
-  );
-};
+import TabBarIcon from './components/TabBarIcon';
+import { Text, View } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 const HomeStackNavigation = () => {
   return (
@@ -77,35 +76,60 @@ const HomeStackNavigation = () => {
   );
 };
 
+const TabNavigation = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarBadge: 1,
+      }}>
+      <Tab.Screen
+        component={HomeStackNavigation}
+        name={SCREEN_NAME.HOME_NAVIGATION}
+        options={{
+          tabBarIcon: props => <TabBarIcon {...props} name="house-user" />,
+        }}
+      />
+      <Tab.Screen
+        component={Profile}
+        name={SCREEN_NAME.PROFILE}
+        options={{
+          tabBarIcon: props => <TabBarIcon {...props} name="user-circle" />,
+        }}
+      />
+      <Tab.Screen
+        component={Info}
+        name={SCREEN_NAME.INFO}
+        options={{
+          tabBarIcon: props => <TabBarIcon {...props} name="user-cog" />,
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <View style={{ backgroundColor: 'yellow', height: 50 }}>
+        <Text>Hello</Text>
+      </View>
+      <DrawerItem
+        label="close"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+    </DrawerContentScrollView>
+  );
+}
+
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarBadge: 1,
-        }}>
-        <Tab.Screen
-          component={HomeStackNavigation}
-          name={SCREEN_NAME.HOME_NAVIGATION}
-          options={{
-            tabBarIcon: props => <TabBarIcon {...props} name="house-user" />,
-          }}
-        />
-        <Tab.Screen
-          component={Profile}
-          name={SCREEN_NAME.PROFILE}
-          options={{
-            tabBarIcon: props => <TabBarIcon {...props} name="user-circle" />,
-          }}
-        />
-        <Tab.Screen
-          component={Info}
-          name={SCREEN_NAME.INFO}
-          options={{
-            tabBarIcon: props => <TabBarIcon {...props} name="user-cog" />,
-          }}
-        />
-      </Tab.Navigator>
+      <Drawer.Navigator drawerContent={CustomDrawerContent}>
+        <Drawer.Screen component={TabNavigation} name="HomeDrawer" />
+        <Drawer.Screen component={Screen3} name={'Screen3'} />
+        <Drawer.Screen component={Screen4} name={'Screen4'} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
