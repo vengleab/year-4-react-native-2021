@@ -16,7 +16,7 @@ const Home = props => {
         alignItems: 'center',
       }}>
       <Text style={{ fontSize: 30 }}>Home page</Text>
-      {Object.values(SCREEN_NAME).map(screenName => {
+      {/* {Object.values(SCREEN_NAME).map(screenName => {
         return (
           <Button
             onPress={() =>
@@ -30,7 +30,16 @@ const Home = props => {
             Go to {screenName}
           </Button>
         );
-      })}
+      })} */}
+      <Button
+        onPress={() =>
+          navigate({
+            name: 'Screen1',
+          })
+        }
+        style={{ margin: 3, padding: 3 }}>
+        Go to Screen1
+      </Button>
     </View>
   );
 };
