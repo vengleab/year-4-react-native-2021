@@ -7,7 +7,7 @@ const Profile = props => {
   //* INFO: we can get from props if it is top level component to screen;
   // const params = props.route.params;
   // const navigation = props.navigation;
-  const { params } = useRoute(); // get from hook
+  const { params = {} } = useRoute(); // get from hook
   const navigation = useNavigation();
   return (
     <View
