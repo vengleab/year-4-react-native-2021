@@ -6,10 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SCREEN_NAME } from './constants/screen';
-import {
-  createStackNavigator,
-  HeaderBackButton,
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -22,7 +19,7 @@ import Screen3 from './screens/Screen3';
 import Screen4 from './screens/Screen4';
 import HeaderTitle from './components/HeaderTitle';
 import TabBarIcon from './components/TabBarIcon';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -110,14 +107,25 @@ const TabNavigation = () => {
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <View style={{ backgroundColor: 'yellow', height: 50 }}>
-        <Text>Hello</Text>
+      <View>
+        <Image
+          style={{ width: 100, height: 100, alignSelf: 'center' }}
+          width={100}
+          source={{
+            uri:
+              'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png',
+          }}
+        />
+        <Text>Username: vengleab so</Text>
+        <Text>Email: sovengleab@gmail.com</Text>
       </View>
       <DrawerItem
         label="close"
-        onPress={() => props.navigation.closeDrawer()}
+        onPress={() => {
+          props.navigation.closeDrawer();
+        }}
       />
+      <DrawerItemList {...props} />
     </DrawerContentScrollView>
   );
 }
@@ -126,7 +134,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Drawer.Navigator drawerContent={CustomDrawerContent}>
-        <Drawer.Screen component={TabNavigation} name="HomeDrawer" />
+        <Drawer.Screen component={TabNavigation} name="Home Drawer" />
         <Drawer.Screen component={Screen3} name={'Screen3'} />
         <Drawer.Screen component={Screen4} name={'Screen4'} />
       </Drawer.Navigator>
