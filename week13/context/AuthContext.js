@@ -16,7 +16,7 @@ export const AuthProvider = props => {
   };
 
   useEffect(() => {
-    syncTokenWithAsyncStorage();
+    //syncTokenWithAsyncStorage();
   }, [token]);
 
   useEffect(() => {
